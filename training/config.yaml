@@ -1,0 +1,82 @@
+# AI Vision Training Configuration
+# ==================================
+
+model:
+  architecture: densenet121
+  num_classes: 14                    # 14 CheXpert classes hoặc 8 unified classes
+  pretrained: true                   # ImageNet pretrained weights
+  dropout: 0.5                       # Dropout trước classifier layer
+
+training:
+  epochs: 50
+  batch_size: 32                     # Giảm xuống 16 nếu GPU < 8GB VRAM
+  learning_rate: 0.0001              # Initial LR
+  weight_decay: 0.00001              # L2 regularization
+  optimizer: adam                     # adam | sgd | adamw
+  scheduler: cosine_annealing        # cosine_annealing | step | reduce_on_plateau
+  scheduler_params:
+    T_0: 10                          # Cosine annealing restart period
+    T_mult: 2
+    eta_min: 0.0000001
+  early_stopping:
+    patience: 10                     # Số epochs không cải thiện → stop
+    min_delta: 0.001                 # Cải thiện tối thiểu
+    monitor: val_auc                 # Metric theo dõi
+  mixed_precision: true              # FP16 training (nhanh hơn, ít VRAM)
+
+data:
+  image_size: 224                    # Resize ảnh về 224x224
+  num_workers: 4                     # DataLoader workers
+  pin_memory: true                   # Faster GPU transfer
+  
+  # CheXpert uncertain label strategy
+  uncertain_strategy: u_mixed        # u_ones | u_zeros | u_ignore | u_mixed
+  uncertain_policies:                # Chỉ dùng khi strategy = u_mixed
+    Atelectasis: u_ones
+    Cardiomegaly: u_zeros
+    Consolidation: u_zeros
+    Edema: u_ones
+    Pleural Effusion: u_ones
+    # Còn lại: u_zeros (default)
+  
+  # Dataset paths
+  chexpert_root: ../../CheXpert
+  nih_root: ../../NIH_Chest_X_rays
+  use_merged: true                   # true = dùng merged dataset
+  frontal_only: true                 # Chỉ dùng ảnh frontal (bỏ lateral)
+
+augmentation:
+  horizontal_flip: true
+  horizontal_flip_p: 0.5
+  brightness_contrast: true
+  brightness_contrast_p: 0.3
+  brightness_limit: 0.2
+  contrast_limit: 0.2
+  rotation: true
+  rotation_limit: 10                 # ±10 degrees
+  rotation_p: 0.3
+  gaussian_noise: true
+  gaussian_noise_p: 0.2
+  shift_scale_rotate: true
+  shift_limit: 0.05
+  scale_limit: 0.1
+
+evaluation:
+  threshold: 0.5                     # Ngưỡng phân loại positive/negative
+  metrics:
+    - auc_roc
+    - f1_score
+    - precision
+    - recall
+    - specificity
+
+logging:
+  tensorboard: true
+  tensorboard_dir: runs/
+  save_best_only: true
+  save_every_n_epochs: 10
+  log_interval: 50                   # Log mỗi N batches
+
+# Hardware
+device: auto                         # auto | cuda | cpu | cuda:0
+seed: 42                             # Random seed cho reproducibility

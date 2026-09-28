@@ -1,0 +1,26 @@
+# =============================================
+# AI Vision — Python Dependencies
+# =============================================
+
+# PyTorch (cài riêng theo GPU/CPU)
+# GPU:  pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+# CPU:  pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+torch>=2.0
+torchvision>=0.15
+
+# FastAPI
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+
+# Image processing
+Pillow>=10.0
+opencv-python>=4.9
+numpy>=1.26
+
+# ML utilities
+scikit-learn>=1.4
+pandas>=2.2
+
+# Config
+pyyaml>=6.0

@@ -1,0 +1,71 @@
+{
+  "status": "training",
+  "current_epoch": 2,
+  "total_epochs": 20,
+  "train_loss": 0.35897546326817364,
+  "val_loss": 0.35375197507840184,
+  "val_auc": 0.7681957584828065,
+  "best_auc": 0.7681957584828065,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.37798,
+      "val_loss": 0.35727,
+      "val_auc": 0.758811,
+      "lr": 0.0001,
+      "time_seconds": 23981.57
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.358975,
+      "val_loss": 0.353752,
+      "val_auc": 0.768196,
+      "lr": 0.0001,
+      "time_seconds": 19586.16
+    }
+  ],
+  "dataset_info": {
+    "chexpert_total": 191027,
+    "train_chexpert": 133718,
+    "train_nih": 0,
+    "train_total": 133718,
+    "validation": 28654,
+    "test": 28655,
+    "num_classes": 14,
+    "class_names": [
+      "No Finding",
+      "Enlarged Cardiomediastinum",
+      "Cardiomegaly",
+      "Lung Opacity",
+      "Lung Lesion",
+      "Edema",
+      "Consolidation",
+      "Pneumonia",
+      "Atelectasis",
+      "Pneumothorax",
+      "Pleural Effusion",
+      "Pleural Other",
+      "Fracture",
+      "Support Devices"
+    ],
+    "class_distribution": {
+      "No Finding": 16974,
+      "Enlarged Cardiomediastinum": 19473,
+      "Cardiomegaly": 30092,
+      "Lung Opacity": 98642,
+      "Lung Lesion": 8148,
+      "Edema": 61493,
+      "Consolidation": 37364,
+      "Pneumonia": 20656,
+      "Atelectasis": 59583,
+      "Pneumothorax": 20401,
+      "Pleural Effusion": 86477,
+      "Pleural Other": 4317,
+      "Fracture": 7935,
+      "Support Devices": 108085
+    },
+    "policy": "ones"
+  },
+  "eval_results": null,
+  "error": null
+}

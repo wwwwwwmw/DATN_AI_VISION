@@ -1,0 +1,7 @@
+# Placeholder: Model weights will be stored here after training
+# Do NOT commit .pth files to git (use Git LFS or cloud storage)
+# 
+# Expected files:
+#   best_densenet121.pth     — Best model checkpoint
+#   densenet121_epoch_50.pth — Final epoch checkpoint
+#   training_history.json    — Training metrics per epoch
